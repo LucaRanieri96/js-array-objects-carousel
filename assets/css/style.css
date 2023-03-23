@@ -14,6 +14,11 @@ img {
   position: absolute;
 }
 
+#titles,
+#texts {
+  color: white;
+}
+
 h3:not(.active),
 h2:not(.active),
 .images img:not(.active) {

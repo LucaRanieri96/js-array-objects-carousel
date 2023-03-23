@@ -93,13 +93,15 @@ imageArray.forEach((image, i) => {
 });
 
 // mi creo altre due funzioni per inserire i text e i title
-titleArray.forEach((title) => {
-  const titleElement = `<h2>${title}</h2>`;
+titleArray.forEach((title, i) => {
+  const activebehavior = i === activeImage ? "active" : "";
+  const titleElement = `<h2 class="${activebehavior}">${title}</h2>`;
   titleEl.insertAdjacentHTML('beforeend', titleElement);
 });
 
-textArray.forEach((text) => {
-  const textElement = `<h3>${text}</h3>`;
+textArray.forEach((text, i) => {
+  const activebehavior = i === activeImage ? "active" : "";
+  const textElement = `<h3 class="${activebehavior}">${text}</h3>`;
   textEl.insertAdjacentHTML('beforeend', textElement);
 });
 

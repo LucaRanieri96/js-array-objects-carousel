@@ -61,18 +61,18 @@ Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti letterali per p
 Al click dell'utente sulle frecce verso sinistra o destra, l'immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo. 
 */
 
-const imagesElement = document.querySelector('.images');
+const imagesElement = document.querySelector(".images");
 
 // dall'array images estraggo le immagini con filter in un nuovo array
 
-const imageArray = images.map(img => img.image);
+const imageArray = images.map((img) => img.image);
 console.log(imageArray);
 
 // mi creo altri 2 array dove estrapolo dall'array originale i titoli e le descrizioni
-const titleArray = images.map(img => img.title);
+const titleArray = images.map((img) => img.title);
 console.log(titleArray);
 
-const textArray = images.map(img => img.text);
+const textArray = images.map((img) => img.text);
 console.log(textArray);
 
 // mi seleziono gli elementi della dom title and text per inserisci poi gli elementi dall'array
@@ -96,19 +96,19 @@ imageArray.forEach((image, i) => {
 titleArray.forEach((title, i) => {
   const activebehavior = i === activeImage ? "active" : "";
   const titleElement = `<h2 class="${activebehavior}">${title}</h2>`;
-  titleEl.insertAdjacentHTML('beforeend', titleElement);
+  titleEl.insertAdjacentHTML("beforeend", titleElement);
 });
 
 textArray.forEach((text, i) => {
   const activebehavior = i === activeImage ? "active" : "";
   const textElement = `<h3 class="${activebehavior}">${text}</h3>`;
-  textEl.insertAdjacentHTML('beforeend', textElement);
+  textEl.insertAdjacentHTML("beforeend", textElement);
 });
 
 // PULSANTE UP
 // seleziono tutte le img per potergli dare l'active dopo
 const slideImagesElements = document.querySelectorAll("img");
-// seleziono tutti i titoli e i testi 
+// seleziono tutti i titoli e i testi
 const slideTitleElements = document.querySelectorAll("h2");
 const slideTextElements = document.querySelectorAll("h3");
 
@@ -138,7 +138,7 @@ nextEl.addEventListener("click", function () {
   activeImage++;
   // console.log(activeImage);
 
-  // se l'immagine è l'ultima allora resetto lo slider alla prima 
+  // se l'immagine è l'ultima allora resetto lo slider alla prima
   if (activeImage >= images.length) {
     activeImage = 0;
   }
@@ -193,5 +193,7 @@ prevEl.addEventListener("click", function () {
   nextTitle.classList.add("active");
 });
 
-
-
+// imposto un intervallo che ogni 3 secondi clicca sul pulsante up
+setInterval(function(){
+  nextEl.click();
+},3000);

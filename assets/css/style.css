@@ -1,19 +1,47 @@
-
 body {
-  background-color: rgb(36, 36, 36);
+  background-color: rgb(54, 54, 54);
 }
-
-.imgs {
+.images {
   max-width:100%;
-  height:600px;
+  height:500px;
+  position: relative;
+  
 }
-
 img {
   object-fit: cover;
   width: 100%;
-  height: 100%;
+  height: 500px !important;
+  position: absolute;
 }
 
 .images img:not(.active) {
   display: none;
+}
+
+.my_bg_grey {
+  background-color: lightgrey;
+  opacity: 60%;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+  height: 30px;
+  aspect-ratio: 1 / 1;
+  border: none;
+}
+
+.my_bg_grey:hover{
+  border: 2px solid black;
+  background-color: brown;
+}
+
+.position_up {
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.position_bot {
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }

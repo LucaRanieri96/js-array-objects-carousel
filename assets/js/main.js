@@ -79,3 +79,70 @@ imageArray.forEach((image, i) => {
   imagesElement.insertAdjacentHTML("beforeend", imgElement);
 });
 
+// PULSANTE UP
+// seleziono tutte le img per potergli dare l'active dopo
+const slideImagesElements = document.querySelectorAll("img");
+// seleziono il pulsante UP e creo una variabile
+const nextEl = document.querySelector(".position_up");
+
+// ascolto il pulsante UP
+nextEl.addEventListener("click", function () {
+  console.log("cliccato up");
+  console.log(slideImagesElements);
+
+  // seleziono la slide corrente
+  const currentSlide = slideImagesElements[activeImage];
+  console.log(currentSlide);
+
+  // rimuovo dalla slide corrente la classe active
+  currentSlide.classList.remove("active");
+
+  // incremento il valore della variabile nel ciclo for sopra
+  activeImage++;
+  console.log(activeImage);
+
+  // se l'immagine è l'ultima allora resetto lo slider alla prima 
+  if (activeImage >= images.length) {
+    activeImage = 0;
+  }
+
+  // seleziono la prossima immagine
+  const nextImage = slideImagesElements[activeImage];
+
+  // e le aggiungo la classe active
+  console.log(nextImage);
+  nextImage.classList.add("active");
+});
+// PULSANTE BOT
+const prevEl = document.querySelector(".position_bot");
+
+// ascolto il pulsante bot
+prevEl.addEventListener("click", function () {
+  console.log("cliccato prev");
+
+  console.log(slideImagesElements); //array[index]
+
+  // seleziono la slide corrente
+  const currentSlide = slideImagesElements[activeImage];
+  console.log(currentSlide);
+
+  // rimuovo dalla slide corrente la classe active
+  currentSlide.classList.remove("active");
+
+  // riduco il valore della variabile nel ciclo for sopra
+  activeImage--;
+  console.log(activeImage);
+  // se l'immagine è la prima allora resetto lo slider all'ultima immagine
+  if (activeImage < 0) {
+    activeImage = images.length - 1;
+  }
+
+  // seleziono la prossima immagine
+  const nextImage = slideImagesElements[activeImage];
+
+  // aggiungo la classe active alla prossima immagine
+  console.log(nextImage);
+  nextImage.classList.add("active");
+});
+
+

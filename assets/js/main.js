@@ -193,7 +193,7 @@ prevEl.addEventListener("click", function () {
   nextTitle.classList.add("active");
 });
 
-// imposto un intervallo che ogni 3 secondi clicca sul pulsante up
+// imposto un intervallo che ogni 5 secondi clicca sul pulsante up
 setInterval(function(){
   nextEl.click();
-},3000);
+},5000);

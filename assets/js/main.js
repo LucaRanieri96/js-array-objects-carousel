@@ -75,7 +75,7 @@ imageArray.forEach((image, i) => {
   // prima però mi creo il template literal da inserire
   const imgSrc = image;
   const activebehavior = i === activeImage ? "active" : "";
-  const imgElement = `<img class="img-fluid ${activebehavior}" src="${imgSrc}" alt="">`;
+  const imgElement = `<img class="img-fluid ${activebehavior}" src="./assets/${imgSrc}" alt="">`;
   imagesElement.insertAdjacentHTML("beforeend", imgElement);
 });
 

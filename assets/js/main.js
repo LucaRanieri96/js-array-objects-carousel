@@ -68,13 +68,14 @@ const imagesElement = document.querySelector('.imgs');
 const imageArray = images.map(img => img.image);
 console.log(imageArray);
 
+let activeImage = 0;
 
-
-imageArray.forEach((image) => {
+imageArray.forEach((image, i) => {
   // per ogni immagine mi creo un elemento dentro imgs nella dom
   // prima però mi creo il template literal da inserire
-  const imgSrc = image.image;
-  const imgElement = `<img class="img-fluid" src="${imgSrc}" alt="">`;
+  const imgSrc = image;
+  const activebehavior = i === activeImage ? "active" : "";
+  const imgElement = `<img class="img-fluid ${activebehavior}" src="${imgSrc}" alt="">`;
   imagesElement.insertAdjacentHTML("beforeend", imgElement);
 });
 

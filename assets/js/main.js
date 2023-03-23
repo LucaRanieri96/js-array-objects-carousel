@@ -75,9 +75,14 @@ console.log(titleArray);
 const textArray = images.map(img => img.text);
 console.log(textArray);
 
+// mi seleziono gli elementi della dom title and text per inserisci poi gli elementi dall'array
+
+const titleEl = document.getElementById("title");
+const textEl = document.getElementById("text");
 
 let activeImage = 0;
 
+// Questa è la funzione per inserire nella dom e far scorrere le immagini grazie ai pulsanti
 imageArray.forEach((image, i) => {
   // per ogni immagine mi creo un elemento dentro imgs nella dom
   // prima però mi creo il template literal da inserire
@@ -85,6 +90,15 @@ imageArray.forEach((image, i) => {
   const activebehavior = i === activeImage ? "active" : "";
   const imgElement = `<img class="img-fluid ${activebehavior}" src="./assets/${imgSrc}" alt="">`;
   imagesElement.insertAdjacentHTML("beforeend", imgElement);
+});
+
+// mi creo altre due funzioni per inserire i text e i title
+titleArray.forEach((title) => {
+  titleEl.innerHTML += title + ' ';
+});
+
+textArray.forEach((text) => {
+  textEl.innerHTML += text + ' ';
 });
 
 // PULSANTE UP

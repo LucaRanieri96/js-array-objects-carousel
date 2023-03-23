@@ -61,7 +61,7 @@ Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti letterali per p
 Al click dell'utente sulle frecce verso sinistra o destra, l'immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo. 
 */
 
-const imagesElement = document.querySelector('.imgs');
+const imagesElement = document.querySelector('.images');
 
 // dall'array images estraggo le immagini con filter in un nuovo array
 

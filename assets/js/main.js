@@ -165,10 +165,13 @@ prevEl.addEventListener("click", function () {
 
   // seleziono la slide corrente
   const currentSlide = slideImagesElements[activeImage];
-  console.log(currentSlide);
+  const currentTitle = slideTitleElements[activeImage];
+  const currentText = slideTextElements[activeImage];
 
   // rimuovo dalla slide corrente la classe active
   currentSlide.classList.remove("active");
+  currentTitle.classList.remove("active");
+  currentText.classList.remove("active");
 
   // riduco il valore della variabile nel ciclo for sopra
   activeImage--;
@@ -180,10 +183,14 @@ prevEl.addEventListener("click", function () {
 
   // seleziono la prossima immagine
   const nextImage = slideImagesElements[activeImage];
+  const nextText = slideTextElements[activeImage];
+  const nextTitle = slideTitleElements[activeImage];
 
   // aggiungo la classe active alla prossima immagine
   console.log(nextImage);
   nextImage.classList.add("active");
+  nextText.classList.add("active");
+  nextTitle.classList.add("active");
 });
 
 

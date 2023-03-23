@@ -68,6 +68,14 @@ const imagesElement = document.querySelector('.images');
 const imageArray = images.map(img => img.image);
 console.log(imageArray);
 
+// mi creo altri 2 array dove estrapolo dall'array originale i titoli e le descrizioni
+const titleArray = images.map(img => img.title);
+console.log(titleArray);
+
+const textArray = images.map(img => img.text);
+console.log(textArray);
+
+
 let activeImage = 0;
 
 imageArray.forEach((image, i) => {

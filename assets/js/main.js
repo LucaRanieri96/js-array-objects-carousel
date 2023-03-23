@@ -59,4 +59,12 @@ Come nel primo carosello realizzato, focalizziamoci prima sulla creazione del ma
 Milestone 1:
 Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti letterali per popolare dinamicamente il carosello.
 Al click dell'utente sulle frecce verso sinistra o destra, l'immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo. 
-/*
+*/
+
+const imagesElement = document.querySelector('.imgs');
+
+// dall'array images estraggo le immagini con filter in un nuovo array
+
+const imageArray = images.map(img => img.image);
+
+console.log(imageArray);

@@ -108,6 +108,10 @@ textArray.forEach((text, i) => {
 // PULSANTE UP
 // seleziono tutte le img per potergli dare l'active dopo
 const slideImagesElements = document.querySelectorAll("img");
+// seleziono tutti i titoli e i testi 
+const slideTitleElements = document.querySelectorAll("h2");
+const slideTextElements = document.querySelectorAll("h3");
+
 // seleziono il pulsante UP e creo una variabile
 const nextEl = document.querySelector(".position_up");
 
@@ -118,14 +122,21 @@ nextEl.addEventListener("click", function () {
 
   // seleziono la slide corrente
   const currentSlide = slideImagesElements[activeImage];
-  console.log(currentSlide);
+  // seleziono il testo e i titoli correnti
+  const currentTitle = slideTitleElements[activeImage];
+  const currentText = slideTextElements[activeImage];
+  // console.log(currentSlide);
+  // console.log(currentText);
+  // console.log(currentTitle);
 
   // rimuovo dalla slide corrente la classe active
   currentSlide.classList.remove("active");
+  currentText.classList.remove("active");
+  currentTitle.classList.remove("active");
 
   // incremento il valore della variabile nel ciclo for sopra
   activeImage++;
-  console.log(activeImage);
+  // console.log(activeImage);
 
   // se l'immagine è l'ultima allora resetto lo slider alla prima 
   if (activeImage >= images.length) {
@@ -134,10 +145,14 @@ nextEl.addEventListener("click", function () {
 
   // seleziono la prossima immagine
   const nextImage = slideImagesElements[activeImage];
+  const nextTitle = slideTitleElements[activeImage];
+  const nextText = slideTextElements[activeImage];
 
   // e le aggiungo la classe active
   console.log(nextImage);
   nextImage.classList.add("active");
+  nextTitle.classList.add("active");
+  nextText.classList.add("active");
 });
 // PULSANTE BOT
 const prevEl = document.querySelector(".position_bot");

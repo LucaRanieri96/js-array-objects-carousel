@@ -194,6 +194,40 @@ prevEl.addEventListener("click", function () {
 });
 
 // imposto un intervallo che ogni 5 secondi clicca sul pulsante up
-setInterval(function(){
+let autoplay;
+autoplay = setInterval(function(){
   nextEl.click();
 },5000);
+
+/*
+// post esercizio appunti
+// autoplay stop on mouse enter
+slider_dom_element.addEventListener("mouseenter", function(){
+  clearInterval(autoplay);
+})
+// on mouse leave restart autoplay
+slider_dom_element.addEventListener("mouseleave", function(){
+  autoplay = setInterval(next, 3000)
+})
+// invert the autoplay on button click
+revert_dom_element.addEventListener("click", function() {
+  clearInterval(autoplay)
+  autoplay = setInterval(prev, 3000)
+})
+
+// quando clicco su una thumbs the main image change
+const thumbs_list = document.querySelectorAll(".thumbs > img")
+console.log(thumbs_list);
+thumbs_list.forEach(thumbs, index => {
+  thumbs.addEventListener("click", function() {
+    document.querySelector(".thumbs > img.active").classList.remove("active")
+    thumbs.classList.add("active");
+    // select the current slide 
+    //remove the active class
+    document.querySelector(".slide.active").classList.remove("active")
+
+    //select the next slide
+    document.querySelectorAll(".slide")[index].classList.add("active")
+    //add class active
+  })
+}) */

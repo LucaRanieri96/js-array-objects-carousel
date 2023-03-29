@@ -1,233 +1,166 @@
-/* 
-Consegna:
-Dato un array di oggetti letterali con:
-url dell’immagine
-titolo
-descrizione
-Creare un carosello come nella foto allegata.
-Milestone 0:
-Come nel primo carosello realizzato, focalizziamoci prima sulla creazione del markup statico: costruiamo il container e inseriamo l'immagine grande in modo da poter stilare lo slider.
-Milestone 1:
-Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti letterali per popolare dinamicamente il carosello.
-Al click dell'utente sulle frecce verso sinistra o destra, l'immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo.
-Milestone 2:
-Aggiungere il ciclo infinito del carosello. Ovvero se la miniatura attiva è la prima e l'utente clicca la freccia verso destra, la miniatura che deve attivarsi sarà l'ultima e viceversa per l'ultima miniatura se l'utente clicca la freccia verso sinistra.
-BONUS 1:
-Aggiungere le thumbnails (sottoforma di miniatura) ed al click attivare l’immagine corrispondente.
-BONUS 2:
-Aggiungere funzionalità di autoplay: dopo un certo periodo di tempo (3 secondi) l’immagine attiva dovrà cambiare alla successiva.
-BONUS 3:
-Aggiungere bottoni di start/stop e di inversione del meccanismo di autoplay. 
-*/
-
 const images = [
   {
-    image: "img/01.webp",
-    title: "Marvel's Spiderman Miles Morale",
-    text: "Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.",
-  },
-  {
-    image: "img/02.webp",
-    title: "Ratchet & Clank: Rift Apart",
-    text: "Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.",
-  },
-  {
-    image: "img/03.webp",
-    title: "Fortnite",
+    image: 'img/01.webp',
+    title: 'Marvel\'s Spiderman Miles Morale',
+    text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
+  }, {
+    image: 'img/02.webp',
+    title: 'Ratchet & Clank: Rift Apart',
+    text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
+  }, {
+    image: 'img/03.webp',
+    title: 'Fortnite',
     text: "Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.",
-  },
-  {
-    image: "img/04.webp",
-    title: "Stray",
-    text: "Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city",
-  },
-  {
-    image: "img/05.webp",
+  }, {
+    image: 'img/04.webp',
+    title: 'Stray',
+    text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city',
+  }, {
+    image: 'img/05.webp',
     title: "Marvel's Avengers",
-    text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
-  },
+    text: 'Marvel\'s Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.',
+  }
 ];
 
-console.log(images);
+// select dom elements
+const slides_dom_element = document.querySelector('.slides')
+const thumbs_dom_element = document.querySelector('.thumbs')
+const prev_dom_element = document.querySelector('.prev')
+const next_dom_element = document.querySelector('.next')
 
-/*
-Milestone 0:
-Come nel primo carosello realizzato, focalizziamoci prima sulla creazione del markup statico: costruiamo il container e inseriamo l'immagine grande in modo da poter stilare lo slider. 
-*/
+let active_slide = 0
 
-/*
-Milestone 1:
-Ora rimuoviamo i contenuti statici e usiamo l’array di oggetti letterali per popolare dinamicamente il carosello.
-Al click dell'utente sulle frecce verso sinistra o destra, l'immagine attiva diventerà visibile e dovremo aggiungervi titolo e testo. 
-*/
+// add images dynamically to the .slides DOM Element
+// - add an active css class to the slide we want to activate
 
-const imagesElement = document.querySelector(".images");
+// add thumbs dynamically to the .thumbs DOM element
+// - add an active css class to the thumb to activate
+images.forEach((slide, i) => {
+ const markup = `
+  <div class="slide ${i === active_slide ? 'active' : ''}">
+    <img src="./assets/${slide.image}" alt="${slide.title} image" >
+    <div class="text">
+      <h3>${slide.title}</h3>
+      <p>${slide.text}</p>
+    </div>
+  </div>
+  ` 
+  slides_dom_element.insertAdjacentHTML('beforeend', markup)
 
-// dall'array images estraggo le immagini con filter in un nuovo array
+  const thumb = `<img src="./assets/${slide.image}" alt="" class="${i === active_slide ? 'active' : ''}">`
 
-const imageArray = images.map((img) => img.image);
-console.log(imageArray);
+  thumbs_dom_element.insertAdjacentHTML('beforeend', thumb)
 
-// mi creo altri 2 array dove estrapolo dall'array originale i titoli e le descrizioni
-const titleArray = images.map((img) => img.title);
-console.log(titleArray);
-
-const textArray = images.map((img) => img.text);
-console.log(textArray);
-
-// mi seleziono gli elementi della dom title and text per inserisci poi gli elementi dall'array
-
-const titleEl = document.getElementById("titles");
-const textEl = document.getElementById("texts");
-
-let activeImage = 0;
-
-// Questa è la funzione per inserire nella dom e far scorrere le immagini grazie ai pulsanti
-imageArray.forEach((image, i) => {
-  // per ogni immagine mi creo un elemento dentro imgs nella dom
-  // prima però mi creo il template literal da inserire
-  const imgSrc = image;
-  const activebehavior = i === activeImage ? "active" : "";
-  const imgElement = `<img class="img-fluid ${activebehavior}" src="./assets/${imgSrc}" alt="">`;
-  imagesElement.insertAdjacentHTML("beforeend", imgElement);
-});
-
-// mi creo altre due funzioni per inserire i text e i title
-titleArray.forEach((title, i) => {
-  const activebehavior = i === activeImage ? "active" : "";
-  const titleElement = `<h2 class="${activebehavior}">${title}</h2>`;
-  titleEl.insertAdjacentHTML("beforeend", titleElement);
-});
-
-textArray.forEach((text, i) => {
-  const activebehavior = i === activeImage ? "active" : "";
-  const textElement = `<h3 class="${activebehavior}">${text}</h3>`;
-  textEl.insertAdjacentHTML("beforeend", textElement);
-});
-
-// PULSANTE UP
-// seleziono tutte le img per potergli dare l'active dopo
-const slideImagesElements = document.querySelectorAll("img");
-// seleziono tutti i titoli e i testi
-const slideTitleElements = document.querySelectorAll("h2");
-const slideTextElements = document.querySelectorAll("h3");
-
-// seleziono il pulsante UP e creo una variabile
-const nextEl = document.querySelector(".position_up");
-
-// ascolto il pulsante UP
-nextEl.addEventListener("click", function () {
-  console.log("cliccato up");
-  console.log(slideImagesElements);
-
-  // seleziono la slide corrente
-  const currentSlide = slideImagesElements[activeImage];
-  // seleziono il testo e i titoli correnti
-  const currentTitle = slideTitleElements[activeImage];
-  const currentText = slideTextElements[activeImage];
-  // console.log(currentSlide);
-  // console.log(currentText);
-  // console.log(currentTitle);
-
-  // rimuovo dalla slide corrente la classe active
-  currentSlide.classList.remove("active");
-  currentText.classList.remove("active");
-  currentTitle.classList.remove("active");
-
-  // incremento il valore della variabile nel ciclo for sopra
-  activeImage++;
-  // console.log(activeImage);
-
-  // se l'immagine è l'ultima allora resetto lo slider alla prima
-  if (activeImage >= images.length) {
-    activeImage = 0;
-  }
-
-  // seleziono la prossima immagine
-  const nextImage = slideImagesElements[activeImage];
-  const nextTitle = slideTitleElements[activeImage];
-  const nextText = slideTextElements[activeImage];
-
-  // e le aggiungo la classe active
-  console.log(nextImage);
-  nextImage.classList.add("active");
-  nextTitle.classList.add("active");
-  nextText.classList.add("active");
-});
-// PULSANTE BOT
-const prevEl = document.querySelector(".position_bot");
-
-// ascolto il pulsante bot
-prevEl.addEventListener("click", function () {
-  console.log("cliccato prev");
-
-  console.log(slideImagesElements); //array[index]
-
-  // seleziono la slide corrente
-  const currentSlide = slideImagesElements[activeImage];
-  const currentTitle = slideTitleElements[activeImage];
-  const currentText = slideTextElements[activeImage];
-
-  // rimuovo dalla slide corrente la classe active
-  currentSlide.classList.remove("active");
-  currentTitle.classList.remove("active");
-  currentText.classList.remove("active");
-
-  // riduco il valore della variabile nel ciclo for sopra
-  activeImage--;
-  console.log(activeImage);
-  // se l'immagine è la prima allora resetto lo slider all'ultima immagine
-  if (activeImage < 0) {
-    activeImage = images.length - 1;
-  }
-
-  // seleziono la prossima immagine
-  const nextImage = slideImagesElements[activeImage];
-  const nextText = slideTextElements[activeImage];
-  const nextTitle = slideTitleElements[activeImage];
-
-  // aggiungo la classe active alla prossima immagine
-  console.log(nextImage);
-  nextImage.classList.add("active");
-  nextText.classList.add("active");
-  nextTitle.classList.add("active");
-});
-
-// imposto un intervallo che ogni 5 secondi clicca sul pulsante up
-let autoplay;
-autoplay = setInterval(function(){
-  nextEl.click();
-},5000);
-
-/*
-// post esercizio appunti
-// autoplay stop on mouse enter
-slider_dom_element.addEventListener("mouseenter", function(){
-  clearInterval(autoplay);
 })
-// on mouse leave restart autoplay
-slider_dom_element.addEventListener("mouseleave", function(){
+
+
+// add event listener to the prev button
+// - select the current active slide
+// - remove from the node the active class
+// - increment a counter to track the active slide
+// - select the next image from the images list
+// - add to it the active classe
+// - select current thumbnail 
+// - remove the active class form the thumb
+// - select the next thumb
+// - add the active class
+prev_dom_element.addEventListener('click', prev);
+
+// add event listener to the next button
+next_dom_element.addEventListener('click', next);
+
+function next() {
+
+  if (active_slide === images.length - 1) {
+    active_slide = 0
+  } else {
+    active_slide++
+  }
+
+  const activeSlide = document.querySelector('.slide.active')
+  //console.log(activeSlide);
+  activeSlide.classList.remove('active')
+  const next_slide = document.querySelectorAll('.slide')[active_slide]
+  next_slide.classList.add('active')
+
+  const activeThumb = document.querySelector('.thumbs img.active')
+  activeThumb.classList.remove('active')
+
+  const next_thumb = document.querySelectorAll('.thumbs img')[active_slide]
+  next_thumb.classList.add('active')
+
+}
+
+function prev () {
+
+  if (active_slide === 0) {
+    active_slide = images.length - 1
+  } else {
+    active_slide--
+  }
+
+  const activeSlide = document.querySelector('.slide.active')
+  //console.log(activeSlide);
+  activeSlide.classList.remove('active')
+  const next_slide = document.querySelectorAll('.slide')[active_slide]
+  next_slide.classList.add('active')
+
+  const activeThumb = document.querySelector('.thumbs img.active')
+  activeThumb.classList.remove('active')
+
+  const next_thumb = document.querySelectorAll('.thumbs img')[active_slide]
+  next_thumb.classList.add('active')
+
+}
+
+// Bonus 2 Autoplay carousel
+// - increment the active slide value every 3 seconds
+let autoplay;
+autoplay = setInterval(next, 3000)
+
+// Bonus 3 Start stop carousel
+// - on mouse enter inside the slider stop the autoplay
+const slider_dom_element = document.querySelector('.slider')
+slider_dom_element.addEventListener('mouseenter', ()=> {
+
+  clearInterval(autoplay)
+
+})
+// - on mouse leave restart the autoplay
+slider_dom_element.addEventListener('mouseleave', ()=> {
   autoplay = setInterval(next, 3000)
 })
-// invert the autoplay on button click
-revert_dom_element.addEventListener("click", function() {
+
+// Invert the autoplay on button click
+// - attach event listener to the revert button
+// - when clicked stop the autoplay
+// - restart the autoplay using the prev callback
+
+document.querySelector('button.revert').addEventListener('click', ()=>{
+  console.log('clicket on revert');
   clearInterval(autoplay)
   autoplay = setInterval(prev, 3000)
 })
 
-// quando clicco su una thumbs the main image change
-const thumbs_list = document.querySelectorAll(".thumbs > img")
-console.log(thumbs_list);
-thumbs_list.forEach(thumbs, index => {
-  thumbs.addEventListener("click", function() {
-    document.querySelector(".thumbs > img.active").classList.remove("active")
-    thumbs.classList.add("active");
-    // select the current slide 
-    //remove the active class
-    document.querySelector(".slide.active").classList.remove("active")
 
-    //select the next slide
-    document.querySelectorAll(".slide")[index].classList.add("active")
-    //add class active
+// Bonus 4
+// when the user clicks on a thumb the main image changes 
+// - select all thumbs
+// - add an event listener
+// - update the current active slide image
+
+const thumbs_list = document.querySelectorAll('.thumbs img')
+thumbs_list.forEach((thumb, index) => {
+  thumb.addEventListener('click', function(){
+    active_slide = index
+    console.log(active_slide);
+    // remove the active class form the active image
+    document.querySelector('.slide.active').classList.remove('active')
+    // update the thumbnail
+    document.querySelector('.thumbs img.active').classList.remove('active')
+    document.querySelectorAll('.slide')[active_slide].classList.add('active')
+    thumb.classList.add('active')
+    
+
   })
-}) */
+})
